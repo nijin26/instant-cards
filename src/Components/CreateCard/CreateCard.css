@@ -1,0 +1,28 @@
+.createcard {
+  border: 2px solid wheat;
+  width: 70%;
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.createcard > form > p {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.createcard > form > input {
+  height: 30px;
+  width: 98%;
+  font-size: 18px;
+}
+
+.createcard__btn {
+  margin-top: 10px;
+  height: 30px;
+  background-color: whitesmoke;
+  border: 1px solid black;
+  box-shadow: 0 2 3 #ccc;
+  width: 98%;
+  text-align: center;
+}
