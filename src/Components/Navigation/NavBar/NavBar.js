@@ -1,7 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import SearchIcon from "@material-ui/icons/Search";
-import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 
 import classes from "./NavBar.module.css";
 
@@ -9,7 +7,7 @@ import { useStateValue } from "../../../store/StateProvider";
 import { auth } from "../../Auth/firebase";
 
 const NavBar = () => {
-  const [{ basket, user }] = useStateValue();
+  const [{ user }] = useStateValue();
 
   const logout = () => {
     if (user) {
@@ -35,12 +33,14 @@ const NavBar = () => {
           </div>
         </Link>
 
-        <Link to="/login" className={classes.link}>
-          <div className={classes.option}>
-            <span className={classes.optionOne}>Your</span>
-            <span className={classes.optionTwo}>Cards</span>
-          </div>
-        </Link>
+        {user && (
+          <Link to="/login" className={classes.link}>
+            <div className={classes.option}>
+              <span className={classes.optionOne}>Your</span>
+              <span className={classes.optionTwo}>Cards</span>
+            </div>
+          </Link>
+        )}
 
         <Link to={!user && "/login"} className={classes.link}>
           <div onClick={logout} className={classes.option}>

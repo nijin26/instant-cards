@@ -1,12 +1,12 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 import "./CreateCard.css";
 
-import ViewCard from "../ViewCard/ViewCard";
 import { useStateValue } from "../../store/StateProvider";
 
 const CreateCard = () => {
-  const [_, dispatch] = useStateValue();
+  const [{ card }, dispatch] = useStateValue();
 
   const [name, setName] = useState("");
   const [job, setJob] = useState("");
@@ -15,6 +15,12 @@ const CreateCard = () => {
   const [website, setWebsite] = useState("");
   const [image, setImage] = useState("");
   const [color, setColor] = useState("");
+  const [place, setPlace] = useState("");
+  const [linkedin, setLinkedIn] = useState("");
+  const [insta, setInsta] = useState("");
+  const [facebook, setFacebook] = useState("");
+  const [github, setGithub] = useState("");
+  const [telegram, setTelegram] = useState("");
 
   const previewHandler = (e) => {
     e.preventDefault();
@@ -27,8 +33,21 @@ const CreateCard = () => {
       website,
       image,
       color,
+      place,
+      linkedin,
+      insta,
+      facebook,
+      github,
+      telegram,
     };
     dispatch({ type: "ADD_CARD_DETAILS", card: card });
+  };
+
+  const publishHandler = () => {
+    axios
+      .post("https://visiting-card-maker-ea6b0.firebaseio.com/card.json", card)
+      .then((response) => alert("Your card is published Succesfully"))
+      .catch((error) => alert(`ERROR! ${error.message}`));
   };
 
   return (
@@ -44,6 +63,12 @@ const CreateCard = () => {
         <input
           value={job}
           onChange={(e) => setJob(e.target.value)}
+          type="text"
+        />
+        <p>Address:</p>
+        <input
+          value={place}
+          onChange={(e) => setPlace(e.target.value)}
           type="text"
         />
         <p>Mobile No:</p>
@@ -76,13 +101,52 @@ const CreateCard = () => {
           onChange={(e) => setColor(e.target.value)}
           type="text"
         />
+
+        <h3 style={{ margin: "8px", marginTop: "12px", textAlign: "center" }}>
+          {" "}
+          Social Icons{" "}
+        </h3>
+
+        <p>LinkedIn:</p>
+        <input
+          value={linkedin}
+          onChange={(e) => setLinkedIn(e.target.value)}
+          type="text"
+        />
+        <p>Instagram:</p>
+        <input
+          value={insta}
+          onChange={(e) => setInsta(e.target.value)}
+          type="text"
+        />
+        <p>Facebook:</p>
+        <input
+          value={facebook}
+          onChange={(e) => setFacebook(e.target.value)}
+          type="text"
+        />
+        <p>Github:</p>
+        <input
+          value={github}
+          onChange={(e) => setGithub(e.target.value)}
+          type="text"
+        />
+        <p>Telegram:</p>
+        <input
+          value={telegram}
+          onChange={(e) => setTelegram(e.target.value)}
+          type="text"
+        />
         <button onClick={previewHandler} className="createcard__btn">
           {" "}
           Preview{" "}
         </button>
       </form>
       <hr />
-      <button className="createcard__btn"> Publish </button>
+      <button onClick={publishHandler} className="createcard__btn">
+        {" "}
+        Publish{" "}
+      </button>
     </div>
   );
 };

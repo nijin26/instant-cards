@@ -1,5 +1,6 @@
 export const initialState = {
   card: null,
+  user: null,
 };
 
 export const getBasketTotal = (basket) =>
@@ -9,6 +10,12 @@ export const reducer = (state, action) => {
   console.log(action);
 
   switch (action.type) {
+    case "SET_USER":
+      return {
+        ...state,
+        user: action.user,
+      };
+
     case "ADD_CARD_DETAILS":
       return {
         ...state,

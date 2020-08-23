@@ -5,14 +5,33 @@ import "./App.css";
 
 import NavBar from "./Components/Navigation/NavBar/NavBar";
 import Home from "./Components/Home/Home";
+import Auth from "./Components/Auth/Auth";
 import { useStateValue } from "./store/StateProvider";
+import { auth } from "./Components/Auth/firebase";
 
 const App = () => {
+  const [{ user }, dispatch] = useStateValue();
+
+  useEffect(() => {
+    const unsubcribe = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        dispatch({ type: "SET_USER", user: authUser });
+      } else {
+        dispatch({ type: "SET_USER", user: null });
+      }
+    });
+    return () => {
+      unsubcribe();
+    };
+  }, []);
+
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/mycards"></Route>
-        <Route path="/login"></Route>
+        <Route path="/login">
+          <Auth />
+        </Route>
         <Route path="/">
           <NavBar />
           <Home />

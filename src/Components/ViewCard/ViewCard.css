@@ -1,9 +1,11 @@
 .viewcard {
   display: flex;
+  flex-direction: column;
   width: 400px;
-  height: 230px;
+  height: max-content;
   border-radius: 20px;
   margin-top: 10px;
+  align-items: center;
   justify-content: space-between;
   border: 1px solid lightgrey;
   -webkit-box-shadow: 6px 7px 16px -8px rgba(0, 0, 0, 0.61);
@@ -14,39 +16,73 @@
 .viewcard__logo {
   max-height: 150px;
   width: 150px;
-  margin-left: 20px;
+  margin: 20px;
   object-fit: contain;
-  align-self: center;
   border-radius: 5px;
 }
 
 .viewcard__details {
   width: 100%;
-  margin: 20px;
-  margin-top: 30px;
-  text-align: end;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 15px auto;
+}
+
+.viewcard__details > div {
+  width: 70%;
+  height: 40px;
+  margin: 5px;
+  padding-left: 10px;
+  border: 1px solid black;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.viewcard__details > div > p {
+  margin: auto 20px;
 }
 
 .name {
   font-size: 24px;
   font-weight: 800;
+  letter-spacing: 2px;
 }
 
 .job {
-  font-style: italic;
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.viewcard__socialIcons {
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  margin: 20px auto;
+  padding: 10px;
+  border: 1px solid white;
+  border-width: 1px 0;
+  opacity: 90%;
+}
+
+.place {
+  font-weight: 500;
+  margin-top: 10px;
 }
 
 .mobile {
-  font-weight: 600;
+  font-weight: 500;
   margin-top: 20px;
 }
 
 .email {
-  font-weight: 600;
+  font-weight: 500;
   margin-top: 10px;
 }
 
 .website {
-  font-weight: 600;
+  font-weight: 500;
   margin-top: 10px;
 }

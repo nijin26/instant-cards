@@ -17,7 +17,7 @@ const Home = () => {
         <CreateCard />
       </div>
       <div className="Home__right">
-        <h3> Live Preview </h3>
+        <h2> Preview </h2>
 
         <ViewCard card={card} />
       </div>
