@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 import "./CreateCard.css";
@@ -6,7 +7,11 @@ import "./CreateCard.css";
 import { useStateValue } from "../../store/StateProvider";
 
 const CreateCard = () => {
-  const [{ card }, dispatch] = useStateValue();
+  const history = useHistory();
+
+  const userId = localStorage.getItem("userId");
+
+  const [{ card, user }, dispatch] = useStateValue();
 
   const [name, setName] = useState("");
   const [job, setJob] = useState("");
@@ -21,11 +26,18 @@ const CreateCard = () => {
   const [facebook, setFacebook] = useState("");
   const [github, setGithub] = useState("");
   const [telegram, setTelegram] = useState("");
+  const [bgimage, setBgImage] = useState("");
+  const [textcolor, setTextColor] = useState("");
 
-  const previewHandler = (e) => {
-    e.preventDefault();
+  const previewHandler = (e, key) => {
+    if (e === "_") {
+      return;
+    } else {
+      e.preventDefault();
+    }
 
     const card = {
+      userId,
       name,
       job,
       mobile,
@@ -39,6 +51,9 @@ const CreateCard = () => {
       facebook,
       github,
       telegram,
+      bgimage,
+      textcolor,
+      key,
     };
     dispatch({ type: "ADD_CARD_DETAILS", card: card });
   };
@@ -46,8 +61,19 @@ const CreateCard = () => {
   const publishHandler = () => {
     axios
       .post("https://visiting-card-maker-ea6b0.firebaseio.com/card.json", card)
-      .then((response) => alert("Your card is published Succesfully"))
-      .catch((error) => alert(`ERROR! ${error.message}`));
+      .then((response) => {
+        dispatch({
+          type: "CARD_PUBLISHED",
+          key: response.data.name,
+        });
+
+        previewHandler("_", response.data.name);
+
+        alert(`Your card with name ${card.name} is Published Successfully ! `);
+      })
+      .catch((error) =>
+        alert(`Click on preview before publishing. ERROR! ${error.message}. `)
+      );
   };
 
   return (
@@ -88,24 +114,53 @@ const CreateCard = () => {
           value={website}
           onChange={(e) => setWebsite(e.target.value)}
           type="text"
+          placeholder="Avoid prefix https://"
         />
         <p>Company Logo or Personal Image:</p>
         <input
           value={image}
           onChange={(e) => setImage(e.target.value)}
           type="text"
+          placeholder="Image address with extension like .jpg, .png"
         />
         <p>Background Colour:</p>
         <input
           value={color}
           onChange={(e) => setColor(e.target.value)}
           type="text"
+          placeholder="Enter common colour name or hex code"
+        />
+        <p>Foreground Colour:</p>
+        <input
+          value={textcolor}
+          onChange={(e) => setTextColor(e.target.value)}
+          type="text"
+          placeholder="Enter common colour name or hex code"
+        />
+        <p>Background Image:</p>
+        <input
+          value={bgimage}
+          onChange={(e) => setBgImage(e.target.value)}
+          type="text"
+          placeholder="Image address with extension like .jpg, .png"
         />
 
-        <h3 style={{ margin: "8px", marginTop: "12px", textAlign: "center" }}>
+        <h3 style={{ margin: "8px", marginTop: "15px", textAlign: "center" }}>
           {" "}
           Social Icons{" "}
         </h3>
+        <p
+          style={{
+            color: "red",
+            margin: "8px",
+            textAlign: "center",
+            fontSize: "12px",
+            fontWeight: "400",
+          }}
+        >
+          {" "}
+          (NOTE:- Don't use the prefix "https://")
+        </p>
 
         <p>LinkedIn:</p>
         <input
@@ -142,10 +197,13 @@ const CreateCard = () => {
           Preview{" "}
         </button>
       </form>
-      <hr />
-      <button onClick={publishHandler} className="createcard__btn">
+
+      <button
+        onClick={user ? publishHandler : () => history.push("/login")}
+        className="createcard__btn"
+      >
         {" "}
-        Publish{" "}
+        {user ? "Publish" : "SignIn to Publish"}{" "}
       </button>
     </div>
   );

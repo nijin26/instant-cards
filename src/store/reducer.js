@@ -21,6 +21,11 @@ export const reducer = (state, action) => {
         ...state,
         card: action.card,
       };
+    case "CARD_PUBLISHED":
+      return {
+        ...state,
+        card: { ...state.card, key: action.key },
+      };
     default:
       return state;
   }

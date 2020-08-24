@@ -11,6 +11,9 @@
   -webkit-box-shadow: 6px 7px 16px -8px rgba(0, 0, 0, 0.61);
   -moz-box-shadow: 6px 7px 16px -8px rgba(0, 0, 0, 0.61);
   box-shadow: 6px 7px 16px -8px rgba(0, 0, 0, 0.61);
+  vertical-align: middle;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
 
 .viewcard__logo {
@@ -27,16 +30,19 @@
   flex-direction: column;
   align-items: center;
   margin: 15px auto;
+  margin-bottom: 30px;
 }
 
 .viewcard__details > div {
   width: 70%;
-  height: 40px;
+  height: max-content;
   margin: 5px;
   padding-left: 10px;
   border: 1px solid black;
+  border-color: inherit;
   border-radius: 4px;
   display: flex;
+  flex: 1 0 auto;
   align-items: center;
   justify-content: flex-start;
 }
@@ -49,22 +55,33 @@
   font-size: 24px;
   font-weight: 800;
   letter-spacing: 2px;
+  height: max-content;
+  margin: auto 30px;
+  text-align: center;
 }
 
 .job {
-  margin-top: 8px;
+  margin: 8px 30px;
   font-weight: 500;
+  height: max-content;
+  text-align: center;
 }
 
 .viewcard__socialIcons {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   width: 60%;
   margin: 20px auto;
+  margin-bottom: 10px;
   padding: 10px;
-  border: 1px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-width: 1px 0;
-  opacity: 90%;
+}
+
+.viewcard__socialIcons > a {
+  margin: 0 10px;
+  text-decoration-style: none;
+  color: inherit;
 }
 
 .place {
@@ -85,4 +102,37 @@
 .website {
   font-weight: 500;
   margin-top: 10px;
+}
+
+.sharelink {
+  margin-top: 30px;
+  width: 50%;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sharelink > input {
+  width: 100%;
+  height: 12px;
+  padding: 10px;
+  border: none;
+}
+
+.copyarea {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.copyicon {
+  padding: 5px;
+  height: 22px !important;
+}
+
+.NavLinks {
+  text-decoration: none;
+  color: inherit;
+  margin: auto 20px;
 }
