@@ -34,7 +34,7 @@ const NavBar = () => {
         </Link>
 
         {user && (
-          <Link to="/login" className={classes.link}>
+          <Link to="/mycards" className={classes.link}>
             <div className={classes.option}>
               <span className={classes.optionTwo}>Your Cards</span>
             </div>

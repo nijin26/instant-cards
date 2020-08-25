@@ -62,12 +62,11 @@ const CreateCard = () => {
     axios
       .post("https://visiting-card-maker-ea6b0.firebaseio.com/card.json", card)
       .then((response) => {
+        previewHandler("_", response.data.name);
         dispatch({
           type: "CARD_PUBLISHED",
           key: response.data.name,
         });
-
-        previewHandler("_", response.data.name);
 
         alert(`Your card with name ${card.name} is Published Successfully ! `);
       })

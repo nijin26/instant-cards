@@ -1,17 +1,20 @@
 import React, { useEffect } from "react";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Link, Redirect } from "react-router-dom";
 
 import "./App.css";
 
 import NavBar from "./Components/Navigation/NavBar/NavBar";
 import Home from "./Components/Home/Home";
 import Auth from "./Components/Auth/Auth";
+import MyCards from "./Components/MyCards/MyCards";
 import { useStateValue } from "./store/StateProvider";
 import { auth } from "./Components/Auth/firebase";
 import PublicCardViewer from "./Components/PublicCardViewer/PublicCardViewer";
 
 const App = () => {
   const [{ user }, dispatch] = useStateValue();
+
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     const unsubcribe = auth.onAuthStateChanged((authUser) => {
@@ -27,12 +30,28 @@ const App = () => {
     };
   }, []);
 
-  return (
-    <BrowserRouter>
+  let router = (
+    <Switch>
+      <Route path="/public/:cardId/:userId">
+        <PublicCardViewer />
+      </Route>
+      <Route path="/login">
+        <NavBar />
+        <Auth />
+      </Route>
+      <Route path="/">
+        <NavBar />
+        <Home />
+      </Route>
+    </Switch>
+  );
+
+  if (user) {
+    router = (
       <Switch>
-        <Route path="/mycards"></Route>
-        <Route path="/login">
-          <Auth />
+        <Route path="/mycards">
+          <NavBar />
+          <MyCards />
         </Route>
         <Route path="/public/:cardId/:userId">
           <PublicCardViewer />
@@ -42,8 +61,10 @@ const App = () => {
           <Home />
         </Route>
       </Switch>
-    </BrowserRouter>
-  );
+    );
+  }
+
+  return <BrowserRouter>{router}</BrowserRouter>;
 };
 
 export default App;

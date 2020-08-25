@@ -8,8 +8,7 @@
 
 .Home__left {
   border: 0px solid lightgrey;
-  border-left-width: 1px;
-  width: 60%;
+  border-left-width: 2px;
   flex: 1 1 60%;
   padding: 30px;
   display: flex;
@@ -18,7 +17,6 @@
   align-items: center;
   background-color: white;
 }
-
 .Home__right {
   width: 70%;
   padding: 30px;
