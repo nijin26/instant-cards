@@ -15,8 +15,6 @@ const PublicCardViewer = React.memo(({ match }) => {
     const userId = match.params.userId;
     const key = match.params.cardId;
 
-    console.log(match.params);
-
     const query =
       userId.length === 0 ? "" : '?orderBy="userId"&equalTo="' + userId + '"';
 

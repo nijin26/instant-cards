@@ -36,7 +36,6 @@ const App = () => {
         <PublicCardViewer />
       </Route>
       <Route path="/login">
-        <NavBar />
         <Auth />
       </Route>
       <Route path="/">

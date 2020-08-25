@@ -22,8 +22,24 @@
 }
 
 .createcard__btn {
+  border: 1px solid black;
+  box-shadow: 0 2 3 #ccc;
+  width: 98%;
   margin-top: 10px;
   height: 30px;
+  background-color: #1bb76e;
+  border-color: #0e2c1e #1bb76e #198552;
+  color: white;
+  font-weight: 400;
+  letter-spacing: 1px;
+  align-self: center;
+  margin-bottom: 10px auto;
+}
+
+.createcard__btn__preview {
+  margin-top: 10px;
+  height: 30px;
+
   background-color: whitesmoke;
   border: 1px solid black;
   box-shadow: 0 2 3 #ccc;

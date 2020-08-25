@@ -4,6 +4,8 @@ import axios from "axios";
 
 import "./CreateCard.css";
 
+import Loader from "../UI/Loader";
+
 import { useStateValue } from "../../store/StateProvider";
 
 const CreateCard = () => {
@@ -12,6 +14,7 @@ const CreateCard = () => {
   const userId = localStorage.getItem("userId");
 
   const [{ card, user }, dispatch] = useStateValue();
+  const [loader, setLoader] = useState(false);
 
   const [name, setName] = useState("");
   const [job, setJob] = useState("");
@@ -59,6 +62,8 @@ const CreateCard = () => {
   };
 
   const publishHandler = () => {
+    setLoader(true);
+
     axios
       .post("https://visiting-card-maker-ea6b0.firebaseio.com/card.json", card)
       .then((response) => {
@@ -69,10 +74,12 @@ const CreateCard = () => {
         });
 
         alert(`Your card with name ${card.name} is Published Successfully ! `);
+        setLoader(false);
       })
-      .catch((error) =>
-        alert(`Click on preview before publishing. ERROR! ${error.message}. `)
-      );
+      .catch((error) => {
+        alert(`Click on preview before publishing. ERROR! ${error.message}. `);
+        setLoader(false);
+      });
   };
 
   return (
@@ -191,19 +198,23 @@ const CreateCard = () => {
           onChange={(e) => setTelegram(e.target.value)}
           type="text"
         />
-        <button onClick={previewHandler} className="createcard__btn">
+        <button onClick={previewHandler} className="createcard__btn__preview">
           {" "}
           Preview{" "}
         </button>
       </form>
 
-      <button
-        onClick={user ? publishHandler : () => history.push("/login")}
-        className="createcard__btn"
-      >
-        {" "}
-        {user ? "Publish" : "SignIn to Publish"}{" "}
-      </button>
+      {loader ? (
+        <Loader />
+      ) : (
+        <button
+          onClick={user ? publishHandler : () => history.push("/login")}
+          className="createcard__btn"
+        >
+          {" "}
+          {user ? "Publish" : "SignIn to Publish"}{" "}
+        </button>
+      )}
     </div>
   );
 };

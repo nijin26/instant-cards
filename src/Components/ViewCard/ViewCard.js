@@ -10,6 +10,7 @@ import FacebookIcon from "@material-ui/icons/Facebook";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import TelegramIcon from "@material-ui/icons/Telegram";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
+import VisibilityIcon from "@material-ui/icons/Visibility";
 import "./ViewCard.css";
 
 const ViewCard = React.memo(({ card }) => {
@@ -134,6 +135,14 @@ const ViewCard = React.memo(({ card }) => {
             ref={textAreaRef}
             value={`${window.location.protocol}//${window.location.host}/public/${card?.key}/${card?.userId}`}
           />
+          <a
+            href={`${window.location.protocol}//${window.location.host}/public/${card?.key}/${card?.userId}`}
+            target="__black"
+            className="option__one"
+          >
+            <VisibilityIcon />{" "}
+          </a>
+
           {document.queryCommandSupported("copy") && (
             <span className="copyarea">
               <FileCopyIcon className="copyicon" onClick={copyToClipboard} />

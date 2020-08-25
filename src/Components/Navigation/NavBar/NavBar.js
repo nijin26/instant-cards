@@ -20,7 +20,7 @@ const NavBar = () => {
     <nav className={classes.navbar}>
       <Link to="/">
         <img
-          src="https://i.imgur.com/tOWp0xx.png"
+          src="https://i.imgur.com/BoUzMNZ.png"
           className={classes.navbar__logo}
           alt=""
         />

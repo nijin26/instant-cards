@@ -9,11 +9,11 @@
 
 .card__item {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   list-style-type: none;
-
+  padding: 5px;
   width: 100%;
   background-color: white;
 }
